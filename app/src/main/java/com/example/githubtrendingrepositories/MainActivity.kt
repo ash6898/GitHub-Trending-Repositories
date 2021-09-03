@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -39,8 +41,8 @@ class MainActivity : AppCompatActivity() {
 
                 //textView.text = res
 
-                val listView = findViewById<ListView>(R.id.listView)
-                val listItems = arrayOfNulls<String>(response.length())
+                //val listView = findViewById<ListView>(R.id.listView)
+                //val listItems = arrayOfNulls<String>(response.length())
 
                 for (i in 0 until response.length()) {
                     val jsonObject = response.getJSONObject(i)
@@ -50,10 +52,41 @@ class MainActivity : AppCompatActivity() {
                     val description = jsonObject.get("description").toString()
                     val language = jsonObject.get("language").toString()
                     val res = rank + "\n" + username + "\n" + repositoryName + "\n" + description + "\n" + language
-                    listItems[i] = res
+                    //listItems[i] = res
                 }
-                val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
-                listView.adapter = adapter
+
+
+                //val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
+                //listView.adapter = adapter
+
+
+
+
+                // getting the recyclerview by its id
+                val recyclerview = findViewById<RecyclerView>(R.id.listView)
+
+                // this creates a vertical layout Manager
+                recyclerview.layoutManager = LinearLayoutManager(this)
+
+                // ArrayList of class ItemsViewModel
+                val data = ArrayList<ItemsViewModel>()
+
+                // This loop will create 20 Views containing
+                // the image with the count of view
+                for (i in 0 until response.length()) {
+                    val jsonObject = response.getJSONObject(i)
+                    val username = jsonObject.get("username").toString()
+                    val repositoryName = jsonObject.get("repositoryName").toString()
+                    val description = jsonObject.get("description").toString()
+                    val language = jsonObject.get("language").toString()
+                    data.add(ItemsViewModel(repositoryName, username, description, language))
+                }
+
+                // This will pass the ArrayList to our Adapter
+                val adapter = RecyclerViewaAdapter(data)
+
+                // Setting the Adapter with the recyclerview
+                recyclerview.adapter = adapter
 
             },
             {
