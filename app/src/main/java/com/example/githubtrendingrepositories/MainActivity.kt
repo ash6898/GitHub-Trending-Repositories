@@ -88,6 +88,11 @@ class MainActivity : AppCompatActivity() {
                 // Setting the Adapter with the recyclerview
                 recyclerview.adapter = adapter
 
+                val progressbar = findViewById<ProgressBar>(R.id.progressbar)
+
+                progressbar.visibility = View.GONE
+                recyclerview.visibility = View.VISIBLE
+
             },
             {
                 Toast.makeText(this@MainActivity, "You clicked me.", Toast.LENGTH_SHORT).show()})
