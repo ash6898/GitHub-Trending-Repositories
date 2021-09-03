@@ -21,6 +21,18 @@ class MainActivity : AppCompatActivity() {
 
         getData()
 
+        val retry_btn = findViewById<Button>(R.id.retry_btn)
+
+        retry_btn.setOnClickListener {
+            val no_internet = findViewById<LinearLayout>(R.id.no_internet)
+            val progressbar = findViewById<ProgressBar>(R.id.progressbar)
+
+            no_internet.visibility = View.GONE
+            progressbar.visibility = View.VISIBLE
+
+            getData()
+        }
+
         //getTrendBtn.setOnClickListener {
             //Toast.makeText(this@MainActivity, "You clicked me.", Toast.LENGTH_SHORT).show()
             //getData()
@@ -95,7 +107,14 @@ class MainActivity : AppCompatActivity() {
 
             },
             {
-                Toast.makeText(this@MainActivity, "You clicked me.", Toast.LENGTH_SHORT).show()})
+
+                val no_internet = findViewById<LinearLayout>(R.id.no_internet)
+                val progressbar = findViewById<ProgressBar>(R.id.progressbar)
+
+                progressbar.visibility = View.GONE
+                no_internet.visibility = View.VISIBLE
+
+            })
                 //textView.text = "That didn't work!" })
 
 // Add the request to the RequestQueue.
