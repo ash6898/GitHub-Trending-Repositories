@@ -1,4 +1,4 @@
-package com.example.githubtrendingrepositories
+package com.example.githubtrendingrepositories.ui.activity
 
 import android.os.Bundle
 import android.view.View
@@ -10,6 +10,9 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.example.githubtrendingrepositories.R
+import com.example.githubtrendingrepositories.ui.adapter.RecyclerViewAdapter
+import com.example.githubtrendingrepositories.ui.viewmodel.ItemsViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -95,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 // This will pass the ArrayList to our Adapter
-                val adapter = RecyclerViewaAdapter(data)
+                val adapter = RecyclerViewAdapter(data)
 
                 // Setting the Adapter with the recyclerview
                 recyclerview.adapter = adapter

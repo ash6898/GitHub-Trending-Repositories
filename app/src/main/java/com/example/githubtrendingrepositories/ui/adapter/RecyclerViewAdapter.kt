@@ -1,12 +1,14 @@
-package com.example.githubtrendingrepositories
+package com.example.githubtrendingrepositories.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.githubtrendingrepositories.ui.viewmodel.ItemsViewModel
+import com.example.githubtrendingrepositories.R
 
-class RecyclerViewaAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<RecyclerViewaAdapter.ViewHolder>() {
+class RecyclerViewAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
