@@ -1,7 +1,6 @@
 package com.example.githubtrendingrepositories.ui.activity
 
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -14,23 +13,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val API_obj = GitHubTrendingAPI()
+        val apiObj = GitHubTrendingAPI()
+        val viewTransformation = ViewTransformation()
+
         val progressBar = findViewById<ProgressBar>(R.id.progressbar)
         val noInternet = findViewById<LinearLayout>(R.id.no_internet)
-
         val recyclerView = findViewById<RecyclerView>(R.id.listView)
 
-        API_obj.getData(this, recyclerView, progressBar, noInternet)
+        apiObj.getData(this, recyclerView, progressBar, noInternet)
 
-        val retry_btn = findViewById<Button>(R.id.retry_btn)
+            //languageColorImg.setColorFilter(Color.RED)
 
-        retry_btn.setOnClickListener {
-            noInternet.visibility = View.GONE
-            progressBar.visibility = View.VISIBLE
+        val retryButton = findViewById<Button>(R.id.retry_btn)
 
-            API_obj.getData(this, recyclerView, progressBar, noInternet)
+        retryButton.setOnClickListener {
+            viewTransformation.showProgressBar(progressBar, noInternet)
+
+            apiObj.getData(this, recyclerView, progressBar, noInternet)
         }
     }
-
     }
 

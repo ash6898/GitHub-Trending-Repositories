@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/aakas/AndroidStudioProjects/GitHubTrendingRepositories/app/src/main/res/drawable/circle.xml" value="0.2203125" />
         <entry key="..\:/Users/aakas/AndroidStudioProjects/GitHubTrendingRepositories/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.2203125" />
         <entry key="..\:/Users/aakas/AndroidStudioProjects/GitHubTrendingRepositories/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/aakas/AndroidStudioProjects/GitHubTrendingRepositories/app/src/main/res/layout/fragment_github_trending_repos.xml" value="0.25" />
-        <entry key="..\:/Users/aakas/AndroidStudioProjects/GitHubTrendingRepositories/app/src/main/res/layout/individual_repos_for_recyclerview.xml" value="0.25" />
+        <entry key="..\:/Users/aakas/AndroidStudioProjects/GitHubTrendingRepositories/app/src/main/res/layout/individual_repos_for_recyclerview.xml" value="0.33" />
+        <entry key="..\:/Users/aakas/AndroidStudioProjects/GitHubTrendingRepositories/app/src/main/res/layout/repo_cardview.xml" value="0.33" />
       </map>
     </option>
   </component>
@@ -15,5 +17,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>

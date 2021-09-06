@@ -1,6 +1,8 @@
 package com.example.githubtrendingrepositories.data.remote.api
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.Color.rgb
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,11 +15,14 @@ import com.example.githubtrendingrepositories.ui.adapter.RecyclerViewAdapter
 import com.example.githubtrendingrepositories.ui.viewmodel.ItemsViewModel
 import com.example.githubtrendingrepositories.ui.activity.ViewTransformation
 
-class GitHubTrendingAPI() {
+class GitHubTrendingAPI {
 
-    fun getData(context: Context, recyclerView: RecyclerView, progressBar: ProgressBar, noInternet: LinearLayout) {
+    fun getData(context: Context,
+                recyclerView: RecyclerView,
+                progressBar: ProgressBar,
+                noInternet: LinearLayout) {
 
-        val url = "https://gh-trending-api.herokuapp.com/repositories"
+        val apiURL = "https://gh-trending-api.herokuapp.com/repositories"
 
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(context)
@@ -30,7 +35,7 @@ class GitHubTrendingAPI() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         // Request a string response from the provided URL.
-        val stringRequest = JsonArrayRequest(Request.Method.GET, url, null, Response.Listener
+        val stringRequest = JsonArrayRequest(Request.Method.GET, apiURL, null, Response.Listener
         { response ->
 
             // This loop will create 20 Views containing
@@ -40,15 +45,33 @@ class GitHubTrendingAPI() {
                 val repositoryName = jsonObject.get("repositoryName").toString()
                 val description = jsonObject.get("description").toString()
                 val language = jsonObject.get("language").toString()
-                data.add(ItemsViewModel(repositoryName, username, description, language))
+                val url = jsonObject.get("url").toString()
+                val languageColor = jsonObject.get("languageColor").toString()
+                val totalStars = jsonObject.get("totalStars").toString()
+                val starsSince = jsonObject.get("starsSince").toString()
+                val forks = jsonObject.get("forks").toString()
+                val rgbColor = Color.RED
+
+                data.add(ItemsViewModel(
+                    repositoryName,
+                    username,
+                    description,
+                    language,
+                    url,
+                    languageColor,
+                    totalStars,
+                    starsSince,
+                    forks,
+                    rgbColor.toString()
+                ))
 
                 initializeRecyclerViewAdapter(data, recyclerView)
 
-                viewTransformation.showRecyclerView(progressBar, recyclerView)
+                viewTransformation.showRecyclerView(progressBar,recyclerView)
             }
         },
             {
-                viewTransformation.showNoInternet(progressBar, noInternet)
+                viewTransformation.showNoInternet(progressBar,noInternet)
             })
 
         // Add the request to the RequestQueue.

@@ -1,8 +1,12 @@
 package com.example.githubtrendingrepositories.ui.adapter
 
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubtrendingrepositories.ui.viewmodel.ItemsViewModel
@@ -22,19 +26,33 @@ class RecyclerViewAdapter(private val mList: List<ItemsViewModel>) : RecyclerVie
 
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val itemsViewModel = mList[position]
+        try {
+            // sets the image to the imageview from our itemHolder class
+            holder.reposname.text = itemsViewModel.reposname
+            holder.username.text = itemsViewModel.username
+            holder.description.text = itemsViewModel.description
+            holder.language.text = itemsViewModel.language
+            holder.totalStars.text = itemsViewModel.totalStars
+            holder.forks.text = itemsViewModel.forks
+            holder.languageColor.text = itemsViewModel.languageColor
+            if(itemsViewModel.languageColor != "null"){
+                holder.languageColorImg.setColorFilter(Color.parseColor(itemsViewModel.languageColor))
+            }
+            else{
+                holder.languageColorImg.visibility = View.GONE
+            }
+            val isExpandable: Boolean = itemsViewModel.expandable
+            holder.expandableLayout.visibility = if(isExpandable) View.VISIBLE else View.GONE
 
-        val ItemsViewModel = mList[position]
-
-        // sets the image to the imageview from our itemHolder class
-        holder.reposname.text = ItemsViewModel.reposname
-
-        // sets the text to the textview from our itemHolder class
-        holder.username.text = ItemsViewModel.username
-
-        holder.description.text = ItemsViewModel.description
-
-        holder.language.text = ItemsViewModel.language
-
+            holder.collapsedLayout.setOnClickListener {
+                itemsViewModel.expandable = !itemsViewModel.expandable
+                notifyItemChanged(position)
+            }
+        }catch (e: IllegalArgumentException){
+            Log.d("exceptionn", itemsViewModel.languageColor + itemsViewModel.reposname)
+            //holder.languageColorImg.visibility = View.INVISIBLE
+        }
     }
 
     // return the number of the items in the list
@@ -48,5 +66,12 @@ class RecyclerViewAdapter(private val mList: List<ItemsViewModel>) : RecyclerVie
         val username: TextView = itemView.findViewById(R.id.username_txt)
         val description: TextView = itemView.findViewById(R.id.description_txt)
         val language: TextView = itemView.findViewById(R.id.language_txt)
+        val totalStars: TextView = itemView.findViewById(R.id.stars_txt)
+        val forks: TextView = itemView.findViewById(R.id.forks_txt)
+        val languageColor: TextView = itemView.findViewById(R.id.author_txt)
+        val languageColorImg: ImageView = itemView.findViewById(R.id.languge_color_img)
+
+        val collapsedLayout: RelativeLayout = itemView.findViewById(R.id.collapsed_layout)
+        val expandableLayout: RelativeLayout = itemView.findViewById(R.id.expanded_layout)
     }
 }
