@@ -1,6 +1,9 @@
 package com.example.githubtrendingrepositories.ui.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.githubtrendingrepositories.ui.viewmodel.ItemsViewModel
 import com.example.githubtrendingrepositories.R
 
-class RecyclerViewAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
-
+class RecyclerViewAdapter(private val context: Context, private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     // create new views
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
         // that is used to hold list item
@@ -51,7 +54,20 @@ class RecyclerViewAdapter(private val mList: List<ItemsViewModel>) : RecyclerVie
         }
 
         holder.shareButton.setOnClickListener {
-            
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, itemsViewModel.url)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            context.startActivity(shareIntent)
+        }
+
+        holder.openButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(itemsViewModel.url)
+            context.startActivity(intent)
         }
 
     }

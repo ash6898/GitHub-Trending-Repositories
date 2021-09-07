@@ -65,7 +65,7 @@ class GitHubTrendingAPI {
                     rgbColor.toString()
                 ))
 
-                initializeRecyclerViewAdapter(data, recyclerView)
+                initializeRecyclerViewAdapter(context, data, recyclerView)
 
                 viewTransformation.showRecyclerView(progressBar,recyclerView)
             }
@@ -78,9 +78,9 @@ class GitHubTrendingAPI {
         queue.add(stringRequest)
     }
 
-    fun initializeRecyclerViewAdapter(data: ArrayList<ItemsViewModel>, recyclerView: RecyclerView){
+    fun initializeRecyclerViewAdapter(context: Context, data: ArrayList<ItemsViewModel>, recyclerView: RecyclerView){
         // This will pass the ArrayList to our Adapter
-        val adapter = RecyclerViewAdapter(data)
+        val adapter = RecyclerViewAdapter(context, data)
 
         // Setting the Adapter with the recyclerview
         recyclerView.adapter = adapter
