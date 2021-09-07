@@ -5,9 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubtrendingrepositories.ui.viewmodel.ItemsViewModel
 import com.example.githubtrendingrepositories.R
@@ -35,13 +33,12 @@ class RecyclerViewAdapter(private val mList: List<ItemsViewModel>) : RecyclerVie
             holder.language.text = itemsViewModel.language
             holder.totalStars.text = itemsViewModel.totalStars
             holder.forks.text = itemsViewModel.forks
-            holder.languageColor.text = itemsViewModel.languageColor
+
             if(itemsViewModel.languageColor != "null"){
                 holder.languageColorImg.setColorFilter(Color.parseColor(itemsViewModel.languageColor))
             }
-            else{
-                holder.languageColorImg.visibility = View.GONE
-            }
+            else holder.languageColorImg.setColorFilter(Color.WHITE)
+
             val isExpandable: Boolean = itemsViewModel.expandable
             holder.expandableLayout.visibility = if(isExpandable) View.VISIBLE else View.GONE
 
@@ -51,8 +48,12 @@ class RecyclerViewAdapter(private val mList: List<ItemsViewModel>) : RecyclerVie
             }
         }catch (e: IllegalArgumentException){
             Log.d("exceptionn", itemsViewModel.languageColor + itemsViewModel.reposname)
-            //holder.languageColorImg.visibility = View.INVISIBLE
         }
+
+        holder.shareButton.setOnClickListener {
+            
+        }
+
     }
 
     // return the number of the items in the list
@@ -68,10 +69,12 @@ class RecyclerViewAdapter(private val mList: List<ItemsViewModel>) : RecyclerVie
         val language: TextView = itemView.findViewById(R.id.language_txt)
         val totalStars: TextView = itemView.findViewById(R.id.stars_txt)
         val forks: TextView = itemView.findViewById(R.id.forks_txt)
-        val languageColor: TextView = itemView.findViewById(R.id.author_txt)
-        val languageColorImg: ImageView = itemView.findViewById(R.id.languge_color_img)
+        val languageColorImg: ImageView = itemView.findViewById(R.id.language_vector)
 
         val collapsedLayout: RelativeLayout = itemView.findViewById(R.id.collapsed_layout)
-        val expandableLayout: RelativeLayout = itemView.findViewById(R.id.expanded_layout)
+        val expandableLayout: LinearLayout = itemView.findViewById(R.id.expanded_layout)
+
+        val shareButton: Button = itemView.findViewById(R.id.share_btn)
+        val openButton: Button = itemView.findViewById(R.id.open_btn)
     }
 }

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
-        app:cardBackgroundColor="#000000">
+        app:cardBackgroundColor="#082032">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,8 +19,8 @@
             <RelativeLayout
                 android:id="@+id/collapsed_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp">
+                android:layout_height="wrap_content"
+                android:padding="12dp">
 
                 <TextView
                     android:id="@+id/reposname_txt"
@@ -30,9 +30,7 @@
                     android:textColor="#ececec"
                     android:textSize="22sp"
                     android:textStyle="bold"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/share_fab"/>
-
+                    android:layout_alignParentStart="true" />
 
                 <TextView
                     android:id="@+id/username_txt"
@@ -40,75 +38,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/reposname_txt"
                     android:text="username"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/share_fab"
                     android:textColor="#ececec"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/language_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/username_txt"
-                    android:text="Language"
-                    android:textColor="#fff"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/share_fab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:contentDescription="share_repos"
-                    android:src="@drawable/ic_baseline_share_24" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/expanded_layout"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/stars_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="stars"
-                    android:textColor="#fff"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/languge_color_img"
-                    android:src="@drawable/circle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_below="@+id/forks_txt"
-                    />
-
-                <TextView
-                    android:id="@+id/author_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="author"
-                    android:textColor="#fff"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:layout_alignParentEnd="true"
-                    android:layout_below="@+id/languge_color_img"/>
-
-                <TextView
-                    android:id="@+id/forks_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="forks"
-                    android:textColor="#fff"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:layout_alignParentEnd="true"/>
 
                 <TextView
                     android:id="@+id/description_txt"
@@ -119,9 +51,130 @@
                     android:textColor="#fff"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:layout_below="@+id/stars_txt"/>
+                    android:layout_below="@+id/username_txt"/>
+
 
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/expanded_layout"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <LinearLayout
+                    android:id="@+id/icon_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:gravity="start">
+
+                    <ImageView
+                        android:id="@+id/language_vector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:src="@drawable/circle" />
+
+                    <TextView
+                        android:id="@+id/language_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="language"
+                        android:textColor="#fff"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:id="@+id/star_vector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_star_border_24" />
+
+                    <TextView
+                        android:id="@+id/stars_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="stars"
+                        android:textColor="#fff"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:gravity="end">
+
+
+                    <ImageView
+                        android:id="@+id/fork_vector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_fork_24" />
+
+                    <TextView
+                        android:id="@+id/forks_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="forks"
+                        android:textColor="#fff"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/share_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="share"
+                        android:textColor="#fff"
+                        android:backgroundTint="#FF4C29"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/open_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="open"
+                        android:textColor="#FF4C29"
+                        android:backgroundTint="#fff"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

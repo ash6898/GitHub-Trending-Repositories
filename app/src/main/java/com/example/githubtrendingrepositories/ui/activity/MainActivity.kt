@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
 
         apiObj.getData(this, recyclerView, progressBar, noInternet)
 
-            //languageColorImg.setColorFilter(Color.RED)
-
         val retryButton = findViewById<Button>(R.id.retry_btn)
 
         retryButton.setOnClickListener {
