@@ -36,13 +36,14 @@
             android:text="No Internet Connection"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#fff"
+            android:textColor="#38A3A5"
             android:gravity="center"/>
 
         <Button
             android:id="@+id/retry_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#38A3A5"
             android:text="Retry"/>
 
     </LinearLayout>
