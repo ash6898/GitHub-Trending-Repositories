@@ -6,10 +6,22 @@ import com.example.githubtrendingrepositories.data.local.entity.ReposEntity
 
 class ReposRepository(private val reposDao: ReposDao) {
 
-    val readAllData: LiveData<List<ReposEntity>> = reposDao.readAllData()
+    val readAllData: LiveData<List<ReposEntity>> = reposDao.readAllRepos()
 
-    suspend fun addRepos(reposEntity: ReposEntity){
+    suspend fun addUser(reposEntity: ReposEntity){
         reposDao.addRepos(reposEntity)
+    }
+
+    suspend fun updateUser(reposEntity: ReposEntity){
+        reposDao.updateRepos(reposEntity)
+    }
+
+    suspend fun deleteUser(reposEntity: ReposEntity){
+        reposDao.deleteRepos(reposEntity)
+    }
+
+    suspend fun deleteAllUsers(){
+        reposDao.deleteAllRepos()
     }
 
 }

@@ -2,7 +2,6 @@ package com.example.githubtrendingrepositories.data.remote.api
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Color.rgb
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +10,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.example.githubtrendingrepositories.data.local.repos_viewmodel.InsertDataToDatabase
 import com.example.githubtrendingrepositories.ui.adapter.RecyclerViewAdapter
 import com.example.githubtrendingrepositories.ui.viewmodel.ItemsViewModel
 import com.example.githubtrendingrepositories.ui.activity.ViewTransformation
@@ -30,6 +30,7 @@ class GitHubTrendingAPI {
         val data = ArrayList<ItemsViewModel>()
 
         val viewTransformation = ViewTransformation()
+        val insertDataToDatabase = InsertDataToDatabase()
 
         // this creates a vertical layout Manager
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -68,6 +69,8 @@ class GitHubTrendingAPI {
                 initializeRecyclerViewAdapter(context, data, recyclerView)
 
                 viewTransformation.showRecyclerView(progressBar,recyclerView)
+
+                insertDataToDatabase.insertRepos(context)
             }
         },
             {

@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "repos_table")
 data class ReposEntity(
     @PrimaryKey(autoGenerate = true)
+    val id: Int,
     val reposname: String,
     val username: String,
     val description: String,

@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubtrendingrepositories.ui.viewmodel.ItemsViewModel
 import com.example.githubtrendingrepositories.R
+import com.example.githubtrendingrepositories.data.local.repos_viewmodel.InsertDataToDatabase
 
 class RecyclerViewAdapter(private val context: Context, private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     // create new views
@@ -49,6 +50,11 @@ class RecyclerViewAdapter(private val context: Context, private val mList: List<
                 itemsViewModel.expandable = !itemsViewModel.expandable
                 notifyItemChanged(position)
             }
+
+            val insertData = InsertDataToDatabase()
+
+            insertData.insertDataToDatabase(context)
+
         }catch (e: IllegalArgumentException){
             Log.d("exceptionn", itemsViewModel.languageColor + itemsViewModel.reposname)
         }
