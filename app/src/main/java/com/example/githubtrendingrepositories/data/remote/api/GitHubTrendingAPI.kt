@@ -4,20 +4,29 @@ import android.content.Context
 import android.graphics.Color
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.example.githubtrendingrepositories.data.local.entity.ReposEntity
 import com.example.githubtrendingrepositories.data.local.repos_viewmodel.InsertDataToDatabase
+import com.example.githubtrendingrepositories.data.local.repos_viewmodel.ReposViewModel
 import com.example.githubtrendingrepositories.ui.adapter.RecyclerViewAdapter
 import com.example.githubtrendingrepositories.ui.viewmodel.ItemsViewModel
 import com.example.githubtrendingrepositories.ui.activity.ViewTransformation
 
 class GitHubTrendingAPI {
 
-    fun getData(context: Context,
+    private lateinit var mUserViewModel: ReposViewModel
+
+    fun getData(owner: ViewModelStoreOwner,
+                context: Context,
                 recyclerView: RecyclerView,
                 progressBar: ProgressBar,
                 noInternet: LinearLayout) {
@@ -30,7 +39,8 @@ class GitHubTrendingAPI {
         val data = ArrayList<ItemsViewModel>()
 
         val viewTransformation = ViewTransformation()
-        val insertDataToDatabase = InsertDataToDatabase()
+
+        val insertData = InsertDataToDatabase()
 
         // this creates a vertical layout Manager
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -66,11 +76,25 @@ class GitHubTrendingAPI {
                     rgbColor.toString()
                 ))
 
+                val repos = ReposEntity(
+                    0,
+                    repositoryName,
+                    username,
+                    description,
+                    language,
+                    url,
+                    languageColor,
+                    totalStars,
+                    starsSince,
+                    forks,
+                    rgbColor.toString()
+                )
+
+                insertData.insertDataToDatabase(context, owner, repos)
+
                 initializeRecyclerViewAdapter(context, data, recyclerView)
 
                 viewTransformation.showRecyclerView(progressBar,recyclerView)
-
-                insertDataToDatabase.insertRepos(context)
             }
         },
             {
@@ -87,6 +111,17 @@ class GitHubTrendingAPI {
 
         // Setting the Adapter with the recyclerview
         recyclerView.adapter = adapter
+    }
+
+    fun showData(context: Context, data: ArrayList<ItemsViewModel>, recyclerView: RecyclerView) {
+        val adapter = RecyclerViewAdapter(context, data)
+
+        // UserViewModel
+        mUserViewModel = ViewModelProvider().get(ReposViewModel::class.java)
+        mUserViewModel.readAllData.observe(owner, Observer { user ->
+            adapter.setData(user)
+        })
+
     }
 
 }

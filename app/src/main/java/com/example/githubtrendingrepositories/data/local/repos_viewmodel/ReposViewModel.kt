@@ -13,23 +13,22 @@ import kotlinx.coroutines.launch
 class ReposViewModel(application: Application): AndroidViewModel(application) {
 
     val readAllData: LiveData<List<ReposEntity>>
+
     private val repository: ReposRepository
 
     init {
-        val userDao = ReposDatabase.getDatabase(
-            application
-        ).reposDao()
+        val userDao = ReposDatabase.getDatabase(application).reposDao()
         repository = ReposRepository(userDao)
         readAllData = repository.readAllData
     }
 
-    fun addUser(reposEntity: ReposEntity){
+    fun addRepos(reposEntity: ReposEntity){
         viewModelScope.launch(Dispatchers.IO) {
             repository.addUser(reposEntity)
         }
     }
 
-    fun updateUser(reposEntity: ReposEntity){
+    /*fun updateUser(reposEntity: ReposEntity){
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateUser(reposEntity)
         }
@@ -43,8 +42,8 @@ class ReposViewModel(application: Application): AndroidViewModel(application) {
 
     fun deleteAllUsers(){
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteAllUsers()
+            //repository.deleteAllUsers()
         }
-    }
+    }*/
 
 }

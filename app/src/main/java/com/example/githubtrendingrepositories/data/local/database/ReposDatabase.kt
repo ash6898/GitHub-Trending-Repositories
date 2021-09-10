@@ -13,6 +13,7 @@ abstract class ReposDatabase: RoomDatabase() {
     abstract fun reposDao(): ReposDao
 
     companion object{
+        @Volatile
         private var INSTANCE: ReposDatabase? = null
 
         fun getDatabase(context: Context): ReposDatabase{
