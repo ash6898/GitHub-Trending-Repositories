@@ -29,20 +29,16 @@ class MainActivity : AppCompatActivity() {
         val noInternet = findViewById<LinearLayout>(R.id.no_internet)
         val recyclerView = findViewById<RecyclerView>(R.id.listView)
 
-        apiObj.getData(this, this, recyclerView, progressBar, noInternet)
+        apiObj.getData(this, this, this,recyclerView, progressBar, noInternet)
 
         val retryButton = findViewById<Button>(R.id.retry_btn)
 
         retryButton.setOnClickListener {
             viewTransformation.showProgressBar(progressBar, noInternet)
 
-            apiObj.getData(this, this, recyclerView, progressBar, noInternet)
+            apiObj.getData(this, this, this,recyclerView, progressBar, noInternet)
         }
 
-        mUserViewModel = ViewModelProvider(this).get(ReposViewModel::class.java)
-        mUserViewModel.readAllData.observe(this, Observer { user ->
-            adapter.setData(user)
-        })
 
     }
 }

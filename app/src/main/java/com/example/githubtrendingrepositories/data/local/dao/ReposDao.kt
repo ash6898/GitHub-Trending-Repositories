@@ -13,16 +13,19 @@ interface ReposDao {
     @Query("SELECT * FROM repos_table ORDER BY id ASC")
     fun readAllRepos(): LiveData<List<ReposEntity>>
 
-    /*@Update
-    suspend fun updateRepos(reposEntity: ReposEntity)
-
-    @Delete
-    suspend fun deleteRepos(reposEntity: ReposEntity)*/
-
-    /*@Query("DELETE FROM repos_table")
+    @Query("DELETE FROM repos_table")
     suspend fun deleteAllRepos()
 
-    @Query("SELECT * FROM repos_table ORDER BY id ASC")
-    fun readAllRepos(): LiveData<List<ReposEntity>>*/
+/*@Update
+suspend fun updateRepos(reposEntity: ReposEntity)
+
+@Delete
+suspend fun deleteRepos(reposEntity: ReposEntity)*/
+
+/*@Query("DELETE FROM repos_table")
+suspend fun deleteAllRepos()
+
+@Query("SELECT * FROM repos_table ORDER BY id ASC")
+fun readAllRepos(): LiveData<List<ReposEntity>>*/
 
 }

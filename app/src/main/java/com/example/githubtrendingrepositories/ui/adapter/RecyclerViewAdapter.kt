@@ -12,9 +12,9 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubtrendingrepositories.ui.viewmodel.ItemsViewModel
 import com.example.githubtrendingrepositories.R
+import com.example.githubtrendingrepositories.data.local.entity.ReposEntity
 
-class RecyclerViewAdapter(private val context: Context, private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
-    // create new views
+class RecyclerViewAdapter(private val context: Context, private var mList: List<ReposEntity>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
@@ -92,5 +92,10 @@ class RecyclerViewAdapter(private val context: Context, private val mList: List<
 
         val shareButton: Button = itemView.findViewById(R.id.share_btn)
         val openButton: Button = itemView.findViewById(R.id.open_btn)
+    }
+
+    fun setData(user: List<ReposEntity>){
+        mList = user
+        notifyDataSetChanged()
     }
 }

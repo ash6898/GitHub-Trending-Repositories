@@ -16,5 +16,6 @@ data class ReposEntity(
     val totalStars: String,
     val starsToday: String,
     val forks: String,
-    val rgbColor: String
+    val rgbColor: String,
+    var expandable: Boolean = false
 )

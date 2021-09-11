@@ -13,13 +13,13 @@ class ViewTransformation {
     }
 
     fun showNoInternet(progressBar: ProgressBar, noInternet: LinearLayout){
-        progressBar.visibility = View.GONE
-        noInternet.visibility = View.VISIBLE
+        //progressBar.visibility = View.GONE
+        //noInternet.visibility = View.VISIBLE
     }
 
     fun showProgressBar(progressBar: ProgressBar, noInternet: LinearLayout){
-        noInternet.visibility = View.GONE
-        progressBar.visibility = View.VISIBLE
+        //noInternet.visibility = View.GONE
+        //progressBar.visibility = View.VISIBLE
     }
 
 }

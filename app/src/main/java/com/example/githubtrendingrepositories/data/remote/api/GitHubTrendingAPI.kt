@@ -4,10 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -25,7 +22,10 @@ class GitHubTrendingAPI {
 
     private lateinit var mUserViewModel: ReposViewModel
 
-    fun getData(owner: ViewModelStoreOwner,
+    val db = InsertDataToDatabase()
+
+    fun getData(lifecycleOwner: LifecycleOwner,
+                owner: ViewModelStoreOwner,
                 context: Context,
                 recyclerView: RecyclerView,
                 progressBar: ProgressBar,
@@ -36,7 +36,7 @@ class GitHubTrendingAPI {
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(context)
 
-        val data = ArrayList<ItemsViewModel>()
+        val data = ArrayList<ReposEntity>()
 
         val viewTransformation = ViewTransformation()
 
@@ -48,6 +48,8 @@ class GitHubTrendingAPI {
         // Request a string response from the provided URL.
         val stringRequest = JsonArrayRequest(Request.Method.GET, apiURL, null, Response.Listener
         { response ->
+
+            db.
 
             // This loop will create 20 Views containing
             for (i in 0 until response.length()) {
@@ -63,19 +65,6 @@ class GitHubTrendingAPI {
                 val forks = jsonObject.get("forks").toString()
                 val rgbColor = Color.RED
 
-                data.add(ItemsViewModel(
-                    repositoryName,
-                    username,
-                    description,
-                    language,
-                    url,
-                    languageColor,
-                    totalStars,
-                    starsSince,
-                    forks,
-                    rgbColor.toString()
-                ))
-
                 val repos = ReposEntity(
                     0,
                     repositoryName,
@@ -90,7 +79,11 @@ class GitHubTrendingAPI {
                     rgbColor.toString()
                 )
 
-                insertData.insertDataToDatabase(context, owner, repos)
+                data.add(repos)
+
+                db.insertDataToDatabase(context, owner, repos)
+
+                db.showData(lifecycleOwner, owner, context, recyclerView)
 
                 initializeRecyclerViewAdapter(context, data, recyclerView)
 
@@ -99,29 +92,24 @@ class GitHubTrendingAPI {
         },
             {
                 viewTransformation.showNoInternet(progressBar,noInternet)
+                viewTransformation.showRecyclerView(progressBar,recyclerView)
+                insertData.showData(lifecycleOwner, owner, context, recyclerView)
             })
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest)
     }
 
-    fun initializeRecyclerViewAdapter(context: Context, data: ArrayList<ItemsViewModel>, recyclerView: RecyclerView){
+    fun initializeRecyclerViewAdapter(context: Context, data: ArrayList<ReposEntity>, recyclerView: RecyclerView){
         // This will pass the ArrayList to our Adapter
-        val adapter = RecyclerViewAdapter(context, data)
+        //val adapter = RecyclerViewAdapter(context, data)
 
         // Setting the Adapter with the recyclerview
-        recyclerView.adapter = adapter
-    }
+        //recyclerView.adapter = adapter
 
-    fun showData(context: Context, data: ArrayList<ItemsViewModel>, recyclerView: RecyclerView) {
-        val adapter = RecyclerViewAdapter(context, data)
-
-        // UserViewModel
-        mUserViewModel = ViewModelProvider().get(ReposViewModel::class.java)
-        mUserViewModel.readAllData.observe(owner, Observer { user ->
-            adapter.setData(user)
-        })
 
     }
+
+
 
 }

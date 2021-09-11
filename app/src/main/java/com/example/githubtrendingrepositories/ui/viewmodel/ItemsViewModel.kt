@@ -1,8 +1,5 @@
 package com.example.githubtrendingrepositories.ui.viewmodel
 
-import android.graphics.Color
-import android.graphics.ColorSpace
-
 data class ItemsViewModel(val reposname: String,
                           val username: String,
                           val description: String,
