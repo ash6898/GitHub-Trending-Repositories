@@ -3,20 +3,11 @@ package com.example.githubtrendingrepositories.ui.activity
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubtrendingrepositories.R
-import com.example.githubtrendingrepositories.data.local.repos_viewmodel.InsertDataToDatabase
-import com.example.githubtrendingrepositories.data.local.repos_viewmodel.ReposViewModel
-
 import com.example.githubtrendingrepositories.data.remote.api.GitHubTrendingAPI
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var mUserViewModel: ReposViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +29,6 @@ class MainActivity : AppCompatActivity() {
 
             apiObj.getData(this, this, this,recyclerView, progressBar, noInternet)
         }
-
-
     }
 }
 

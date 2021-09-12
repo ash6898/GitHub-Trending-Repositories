@@ -10,22 +10,13 @@ interface ReposDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addRepos(reposEntity: ReposEntity)
 
-    @Query("SELECT * FROM repos_table ORDER BY id ASC")
+    @Query("SELECT * FROM repos_table ORDER BY rank ASC")
     fun readAllRepos(): LiveData<List<ReposEntity>>
+
+    @Query("SELECT COUNT('rank') FROM repos_table")
+    fun getTableSize(): Int
 
     @Query("DELETE FROM repos_table")
     suspend fun deleteAllRepos()
-
-/*@Update
-suspend fun updateRepos(reposEntity: ReposEntity)
-
-@Delete
-suspend fun deleteRepos(reposEntity: ReposEntity)*/
-
-/*@Query("DELETE FROM repos_table")
-suspend fun deleteAllRepos()
-
-@Query("SELECT * FROM repos_table ORDER BY id ASC")
-fun readAllRepos(): LiveData<List<ReposEntity>>*/
 
 }

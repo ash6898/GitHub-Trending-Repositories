@@ -12,16 +12,8 @@ class ReposRepository(private val reposDao: ReposDao) {
         reposDao.addRepos(reposEntity)
     }
 
-    /*suspend fun updateUser(reposEntity: ReposEntity){
-        reposDao.updateRepos(reposEntity)
-    }
-
-    suspend fun deleteUser(reposEntity: ReposEntity){
-        reposDao.deleteRepos(reposEntity)
-    }
-
-    suspend fun deleteAllUsers(){
+    suspend fun deleteAllUser(){
         reposDao.deleteAllRepos()
-    }*/
+    }
 
 }

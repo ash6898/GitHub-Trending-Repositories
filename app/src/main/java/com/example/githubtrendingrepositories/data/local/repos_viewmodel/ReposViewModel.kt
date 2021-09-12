@@ -31,20 +31,8 @@ class ReposViewModel(application: Application): AndroidViewModel(application) {
 
     fun deleteAllRepos(){
         viewModelScope.launch(Dispatchers.IO) {
-            //repository.deleteAllUsers()
+            repository.deleteAllUser()
         }
     }
-
-    /*fun updateUser(reposEntity: ReposEntity){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.updateUser(reposEntity)
-        }
-    }
-
-    fun deleteUser(reposEntity: ReposEntity){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteUser(reposEntity)
-        }
-    }*/
 
 }
