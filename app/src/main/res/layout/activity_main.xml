@@ -10,42 +10,24 @@
     android:layout_margin="8dp"
     >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listView"
-        android:visibility="gone"/>
-
     <ProgressBar
         android:id="@+id/progressbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
-    <LinearLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/no_internet"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:id="@+id/swipeRefresh_layout"
         android:visibility="gone">
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="No Internet Connection"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#38A3A5"
-            android:gravity="center"/>
+            android:layout_height="match_parent"
+            android:id="@+id/listView"
+            android:visibility="gone"/>
 
-        <Button
-            android:id="@+id/retry_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#38A3A5"
-            android:text="Retry"/>
-
-    </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

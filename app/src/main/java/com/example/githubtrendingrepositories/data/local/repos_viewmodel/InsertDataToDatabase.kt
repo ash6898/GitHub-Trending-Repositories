@@ -2,6 +2,7 @@ package com.example.githubtrendingrepositories.data.local.repos_viewmodel
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.lifecycle.LifecycleOwner
@@ -9,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.githubtrendingrepositories.data.local.entity.ReposEntity
 import com.example.githubtrendingrepositories.ui.activity.ViewTransformation
 import com.example.githubtrendingrepositories.ui.adapter.RecyclerViewAdapter
@@ -27,9 +29,10 @@ class InsertDataToDatabase {
     fun showData(lifecycleOwner: LifecycleOwner,
                  owner: ViewModelStoreOwner,
                  context: Context,
+                 packageContext: Context,
                  recyclerView: RecyclerView,
                  progressBar: ProgressBar,
-                 noInternet: LinearLayout) {
+                 swipeRefreshLayout: SwipeRefreshLayout) {
         mUserViewModel = ViewModelProvider(owner).get(ReposViewModel::class.java)
         mUserViewModel.readAllData.observe(lifecycleOwner, Observer { user ->
             if(user.size > 0) {
@@ -39,11 +42,11 @@ class InsertDataToDatabase {
                 Log.d("showw", "show in db " + user.size.toString())
 
                 val viewTransformation = ViewTransformation()
-                viewTransformation.showRecyclerView(progressBar,recyclerView)
+                viewTransformation.showRecyclerView(progressBar,recyclerView, swipeRefreshLayout)
             }
             else{
                 val viewTransformation = ViewTransformation()
-                viewTransformation.showNoInternet(progressBar, noInternet)
+                viewTransformation.showNoInternet(packageContext)
                 Log.d("noInternettt","called in insertdb")
                 Log.d("showw", "show no internet from insertdb")
             }
@@ -56,5 +59,5 @@ class InsertDataToDatabase {
         mUserViewModel = ViewModelProvider(owner).get(ReposViewModel::class.java)
         mUserViewModel.deleteAllRepos()
     }
- 
+
 }

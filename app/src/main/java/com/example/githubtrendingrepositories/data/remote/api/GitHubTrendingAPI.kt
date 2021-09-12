@@ -7,6 +7,7 @@ import android.widget.ProgressBar
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -26,11 +27,10 @@ class GitHubTrendingAPI {
         context: Context,
         recyclerView: RecyclerView,
         progressBar: ProgressBar,
-        noInternet: LinearLayout
+        swipeRefreshLayout: SwipeRefreshLayout
     ) {
 
         val insertData = InsertDataToDatabase()
-
 
         val apiURL = "https://gh-trending-api.herokuapp.com/repositories"
 
@@ -44,7 +44,6 @@ class GitHubTrendingAPI {
         // this creates a vertical layout Manager
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        // Request a string response from the provided URL.
         val stringRequest = JsonArrayRequest(
             Request.Method.GET,
             apiURL,
@@ -90,19 +89,10 @@ class GitHubTrendingAPI {
 
                     Log.d("showw", "show in api")
 
-                    viewTransformation.showRecyclerView(progressBar, recyclerView)
+                    viewTransformation.showRecyclerView(progressBar, recyclerView, swipeRefreshLayout)
                 }
             },
             {
-                insertData.showData(
-                    lifecycleOwner,
-                    owner,
-                    context,
-                    recyclerView,
-                    progressBar,
-                    noInternet
-                )
-
                 Log.d("noInternettt", "called")
             }
         )

@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GitHubTrendingRepositories">
         <activity
+            android:name=".ui.activity.NoInternet"
+            android:exported="true" />
+        <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
