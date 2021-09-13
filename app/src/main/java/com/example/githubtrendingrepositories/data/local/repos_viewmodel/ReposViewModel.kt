@@ -28,6 +28,9 @@ class ReposViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun searchDatabase(searchQuery: String): LiveData<List<ReposEntity>>{
+        return repository.searchDatabase(searchQuery)
+    }
 
     fun deleteAllRepos(){
         viewModelScope.launch(Dispatchers.IO) {

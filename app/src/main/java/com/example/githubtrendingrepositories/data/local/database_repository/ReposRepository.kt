@@ -16,4 +16,8 @@ class ReposRepository(private val reposDao: ReposDao) {
         reposDao.deleteAllRepos()
     }
 
+    fun searchDatabase(searchQuery: String): LiveData<List<ReposEntity>>{
+        return reposDao.searchDatabase(searchQuery)
+    }
+
 }

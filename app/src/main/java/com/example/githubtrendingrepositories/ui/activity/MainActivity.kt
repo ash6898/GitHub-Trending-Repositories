@@ -5,15 +5,23 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.githubtrendingrepositories.R
 import com.example.githubtrendingrepositories.data.local.repos_viewmodel.InsertDataToDatabase
+import com.example.githubtrendingrepositories.data.local.repos_viewmodel.ReposViewModel
 import com.example.githubtrendingrepositories.data.remote.api.GitHubTrendingAPI
+import com.example.githubtrendingrepositories.ui.adapter.RecyclerViewAdapter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+
+    private lateinit var reposViewModel: ReposViewModel
+    lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         val progressBar = findViewById<ProgressBar>(R.id.progressbar)
         val noInternet = findViewById<LinearLayout>(R.id.no_internet)
-        val recyclerView = findViewById<RecyclerView>(R.id.listView)
+
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh_layout)
         val retryButton = findViewById<Button>(R.id.retry_btn)
+
+        reposViewModel = ViewModelProvider(this).get(ReposViewModel::class.java)
+        recyclerView = findViewById<RecyclerView>(R.id.listView)
 
         apiObj.getData(
             this,
@@ -78,6 +89,19 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+
+        val search = menu?.findItem(R.id.menu_search)
+        val searchView = search?.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
+
+        return true
     }
 
     private fun checkForInternet(context: Context): Boolean {
@@ -119,6 +143,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if(query != null){
+            searchDatabase(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if(newText != null){
+            searchDatabase(newText)
+        }
+        return true
+    }
+
+    private fun searchDatabase(query: String){
+        val searchQuery = "%$query%"
+
+        reposViewModel.searchDatabase(searchQuery).observe(this,{list ->
+            list.let{
+                val adapter = RecyclerViewAdapter(this, it)
+                recyclerView.adapter = adapter
+            }
+        })
+    }
 }
 
 
