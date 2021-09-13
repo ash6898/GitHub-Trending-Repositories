@@ -1,7 +1,6 @@
 package com.example.githubtrendingrepositories.ui.activity
 
 import android.content.Context
-import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -22,61 +21,60 @@ class MainActivity : AppCompatActivity() {
 
         val apiObj = GitHubTrendingAPI()
         val viewTransformation = ViewTransformation()
+        val insertData = InsertDataToDatabase()
 
         val progressBar = findViewById<ProgressBar>(R.id.progressbar)
-        //val noInternet = findViewById<LinearLayout>(R.id.no_internet)
+        val noInternet = findViewById<LinearLayout>(R.id.no_internet)
         val recyclerView = findViewById<RecyclerView>(R.id.listView)
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh_layout)
-        //val retryButton = findViewById<Button>(R.id.retry_btn)
+        val retryButton = findViewById<Button>(R.id.retry_btn)
 
-        if(checkForInternet(this)) {
+        apiObj.getData(
+            this,
+            this,
+            this,
+            recyclerView,
+            progressBar,
+            swipeRefreshLayout,
+            noInternet,
+            false
+        )
+
+        retryButton.setOnClickListener {
+            viewTransformation.showProgressBar(progressBar, swipeRefreshLayout, noInternet, recyclerView)
+
+            apiObj.getData(this,
+                this,
+                this,
+                recyclerView,
+                progressBar,
+                swipeRefreshLayout,
+                noInternet,
+            false)
+        }
+
+        swipeRefreshLayout.setOnRefreshListener {
+
+            val fromSwipe: Boolean = true
+
             apiObj.getData(
                 this,
                 this,
                 this,
                 recyclerView,
                 progressBar,
-                swipeRefreshLayout)
-        }
-        else{
-            val intent = Intent(this, NoInternet::class.java)
-            startActivity(intent)
-        }
+                swipeRefreshLayout,
+                noInternet,
+                fromSwipe
+            )
 
-        /*retryButton.setOnClickListener {
-            viewTransformation.showProgressBar(progressBar, swipeRefreshLayout)
+            swipeRefreshLayout.isRefreshing = false
 
-            apiObj.getData(this, this, this,recyclerView, progressBar, swipeRefreshLayout)
-        }*/
-
-        swipeRefreshLayout.setOnRefreshListener {
-
-            if(checkForInternet(this)) {
-                apiObj.getData(
-                    this,
-                    this,
-                    this,
-                    recyclerView,
-                    progressBar,
-                    swipeRefreshLayout
-                )
-
-                Toast.makeText(this, "Content Refreshed Successfully...", Toast.LENGTH_SHORT).show()
-                swipeRefreshLayout.isRefreshing = false
-
+            if(checkForInternet(this)){
+                Toast.makeText(this,"Refresh Success",Toast.LENGTH_SHORT).show()
             }
             else{
-                Toast.makeText(this, "No Internet Connection...", Toast.LENGTH_SHORT).show()
-                swipeRefreshLayout.isRefreshing = false
-
-                val insertData = InsertDataToDatabase()
-                insertData.showData(this,
-                    this,
-                    this,
-                    this,
-                    recyclerView,
-                    progressBar,
-                    swipeRefreshLayout)
+                Toast.makeText(this,"No Internet",Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -120,6 +118,7 @@ class MainActivity : AppCompatActivity() {
             return networkInfo.isConnected
         }
     }
+
 }
 
 

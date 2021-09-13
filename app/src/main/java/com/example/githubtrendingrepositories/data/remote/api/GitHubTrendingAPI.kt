@@ -17,7 +17,13 @@ import com.example.githubtrendingrepositories.data.local.repos_viewmodel.InsertD
 import com.example.githubtrendingrepositories.ui.activity.ViewTransformation
 import com.example.githubtrendingrepositories.ui.adapter.RecyclerViewAdapter
 
+interface MyInterface{
+    fun onCallback(response:Boolean)
+}
+
 class GitHubTrendingAPI {
+
+    val myInterface = this
 
     private val db = InsertDataToDatabase()
 
@@ -27,12 +33,16 @@ class GitHubTrendingAPI {
         context: Context,
         recyclerView: RecyclerView,
         progressBar: ProgressBar,
-        swipeRefreshLayout: SwipeRefreshLayout
+        swipeRefreshLayout: SwipeRefreshLayout,
+        noInternet: LinearLayout,
+        fromSwipe: Boolean
     ) {
 
         val insertData = InsertDataToDatabase()
 
         val apiURL = "https://gh-trending-api.herokuapp.com/repositories"
+
+        val apiSuccess: LiveData<Boolean>
 
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(context)
@@ -82,17 +92,24 @@ class GitHubTrendingAPI {
 
                     db.insertDataToDatabase(owner, repos)
 
-                    //db.showData(lifecycleOwner, owner, context, recyclerView, progressBar, noInternet)
+                    //db.showData(lifecycleOwner, owner, context, recyclerView, progressBar,swipeRefreshLayout, noInternet)
 
                     val adapter = RecyclerViewAdapter(context, data)
                     recyclerView.adapter = adapter
 
                     Log.d("showw", "show in api")
 
-                    viewTransformation.showRecyclerView(progressBar, recyclerView, swipeRefreshLayout)
+                    viewTransformation.showRecyclerView(progressBar,
+                        recyclerView,
+                        swipeRefreshLayout,
+                        noInternet)
+
+
                 }
             },
             {
+                db.showData(lifecycleOwner, owner, context, recyclerView, progressBar, swipeRefreshLayout, noInternet, false)
+
                 Log.d("noInternettt", "called")
             }
         )
