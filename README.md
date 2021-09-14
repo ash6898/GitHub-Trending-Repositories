@@ -4,7 +4,7 @@
 [![Download](https://img.shields.io/badge/Kotlin-1.3.20-brightgreen.svg?style=flat&logo=kotlin)](https://kotlinlang.org/docs/reference/whatsnew13.html)
 [![Download](https://img.shields.io/badge/Gradle-7.0.2-brightgreen.svg?style=flat&logo=android)](https://docs.gradle.org/7.0.2/release-notes.html)
 
-### FEATURES OF GitHub Trending Repositories
+### Features OF GitHub Trending Repositories
 
  - [x] Get Trending Repositories From GitHub Using API
 	 - https://gh-trending-api.herokuapp.com/docs
