@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">GitHub Trending Repositories</string>
+
+    <!-- String values for activity_main -->
+    <string name="no_internet">No Internet Connection</string>
+    <string name="retry_btn">Retry</string>
+
+    <!-- String values for cardView -->
+    <string name="repository_name">Repository name</string>
+    <string name="user_name">User name</string>
+    <string name="description">Description</string>
+    <string name="language">Language</string>
+    <string name="stars">Stars</string>
+    <string name="forks">Forks</string>
+    <string name="share_btn">Share</string>
+    <string name="open_btn">Open</string>
+    <string name="language_content_description">Language</string>
+    <string name="stars_content_description">Stars</string>
+    <string name="forks_content_description">Forks</string>
+
 </resources>

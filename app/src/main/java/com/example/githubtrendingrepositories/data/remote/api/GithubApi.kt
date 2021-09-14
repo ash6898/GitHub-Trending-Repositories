@@ -17,16 +17,11 @@ import com.example.githubtrendingrepositories.data.local.repos_viewmodel.InsertD
 import com.example.githubtrendingrepositories.ui.activity.ViewTransformation
 import com.example.githubtrendingrepositories.ui.adapter.RecyclerViewAdapter
 
-interface MyInterface{
-    fun onCallback(response:Boolean)
-}
-
-class GitHubTrendingAPI {
-
-    val myInterface = this
+class GithubApi {
 
     private val db = InsertDataToDatabase()
 
+    // This function gets JSON data from API URL
     fun getData(
         lifecycleOwner: LifecycleOwner,
         owner: ViewModelStoreOwner,
@@ -35,14 +30,9 @@ class GitHubTrendingAPI {
         progressBar: ProgressBar,
         swipeRefreshLayout: SwipeRefreshLayout,
         noInternet: LinearLayout,
-        fromSwipe: Boolean
     ) {
 
-        val insertData = InsertDataToDatabase()
-
         val apiURL = "https://gh-trending-api.herokuapp.com/repositories"
-
-        val apiSuccess: LiveData<Boolean>
 
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(context)
@@ -63,7 +53,7 @@ class GitHubTrendingAPI {
 
                 db.deleteData(owner)
 
-                // This loop will create 20 Views containing
+                // This loop will iterate through JSON Array
                 for (i in 0 until response.length()) {
                     val jsonObject = response.getJSONObject(i)
                     val rank = jsonObject.get("rank").toString().toInt()
@@ -90,27 +80,33 @@ class GitHubTrendingAPI {
 
                     data.add(repos)
 
+                    // Adding data to the database
                     db.insertDataToDatabase(owner, repos)
 
-                    //db.showData(lifecycleOwner, owner, context, recyclerView, progressBar,swipeRefreshLayout, noInternet)
-
+                    // Sets data to the RecyclerView Adapter
                     val adapter = RecyclerViewAdapter(context, data)
                     recyclerView.adapter = adapter
 
-                    Log.d("showw", "show in api")
-
-                    viewTransformation.showRecyclerView(progressBar,
+                    // hides progressbar and shows RecyclerView
+                    viewTransformation.showRecyclerView(
+                        progressBar,
                         recyclerView,
                         swipeRefreshLayout,
-                        noInternet)
-
-
+                        noInternet
+                    )
                 }
             },
             {
-                db.showData(lifecycleOwner, owner, context, recyclerView, progressBar, swipeRefreshLayout, noInternet, false)
-
-                Log.d("noInternettt", "called")
+                // If unable to fetch from API this fun will check database any data and display it
+                db.showData(
+                    lifecycleOwner,
+                    owner,
+                    context,
+                    recyclerView,
+                    progressBar,
+                    swipeRefreshLayout,
+                    noInternet
+                )
             }
         )
 

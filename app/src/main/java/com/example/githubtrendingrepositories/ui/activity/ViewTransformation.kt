@@ -9,10 +9,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class ViewTransformation {
 
-    fun showRecyclerView(progressBar: ProgressBar,
-                         recyclerView: RecyclerView,
-                         swipeRefreshLayout: SwipeRefreshLayout,
-                         noInternet: LinearLayout){
+
+    // This function hides progress bar and displays RecyclerView
+    fun showRecyclerView(
+        progressBar: ProgressBar,
+        recyclerView: RecyclerView,
+        swipeRefreshLayout: SwipeRefreshLayout,
+        noInternet: LinearLayout
+    ) {
         progressBar.visibility = View.GONE
         noInternet.visibility = View.GONE
         swipeRefreshLayout.visibility = View.VISIBLE
@@ -21,21 +25,27 @@ class ViewTransformation {
         Log.d("showw", "called in viewtrans")
     }
 
-    fun showNoInternet(progressBar: ProgressBar,
-                       swipeRefreshLayout: SwipeRefreshLayout,
-                       noInternet: LinearLayout,
-                       recyclerView: RecyclerView){
+    // This function RecyclerView, ProgressBar and displays noInternet Layout
+    fun showNoInternet(
+        progressBar: ProgressBar,
+        swipeRefreshLayout: SwipeRefreshLayout,
+        noInternet: LinearLayout,
+        recyclerView: RecyclerView
+    ) {
         progressBar.visibility = View.GONE
         recyclerView.visibility = View.GONE
         swipeRefreshLayout.visibility = View.GONE
         noInternet.visibility = View.VISIBLE
-        Log.d("noInternettt","called in viewtrans")
+        Log.d("noInternettt", "called in viewtrans")
     }
 
-    fun showProgressBar(progressBar: ProgressBar,
-                        swipeRefreshLayout: SwipeRefreshLayout,
-                        noInternet: LinearLayout,
-                        recyclerView: RecyclerView){
+    // This function hides RecyclerView, NoIntenet Layout and shows ProgressBar
+    fun showProgressBar(
+        progressBar: ProgressBar,
+        swipeRefreshLayout: SwipeRefreshLayout,
+        noInternet: LinearLayout,
+        recyclerView: RecyclerView
+    ) {
         swipeRefreshLayout.visibility = View.GONE
         recyclerView.visibility = View.GONE
         noInternet.visibility = View.GONE

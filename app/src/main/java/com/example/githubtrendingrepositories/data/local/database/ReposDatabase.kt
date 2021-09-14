@@ -8,20 +8,21 @@ import com.example.githubtrendingrepositories.data.local.dao.ReposDao
 import com.example.githubtrendingrepositories.data.local.entity.ReposEntity
 
 @Database(entities = [ReposEntity::class], version = 1, exportSchema = false)
-abstract class ReposDatabase: RoomDatabase() {
+abstract class ReposDatabase : RoomDatabase() {
 
     abstract fun reposDao(): ReposDao
 
-    companion object{
+    //Creating Singleton object
+    companion object {
         @Volatile
         private var INSTANCE: ReposDatabase? = null
 
-        fun getDatabase(context: Context): ReposDatabase{
+        fun getDatabase(context: Context): ReposDatabase {
             val tempInstance = INSTANCE
-            if (tempInstance != null){
+            if (tempInstance != null) {
                 return tempInstance
             }
-            synchronized(this){
+            synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ReposDatabase::class.java,

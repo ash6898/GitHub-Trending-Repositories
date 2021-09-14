@@ -10,31 +10,34 @@ import com.example.githubtrendingrepositories.data.local.entity.ReposEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ReposViewModel(application: Application): AndroidViewModel(application) {
+class ReposViewModel(application: Application) : AndroidViewModel(application) {
 
     val readAllData: LiveData<List<ReposEntity>>
-
     private val repository: ReposRepository
 
+    // initialize DAO and Repository
     init {
         val userDao = ReposDatabase.getDatabase(application).reposDao()
         repository = ReposRepository(userDao)
         readAllData = repository.readAllData
     }
 
-    fun addRepos(reposEntity: ReposEntity){
+    // Calling repository addRepos function inside Coroutine viewModelScope
+    fun addRepos(reposEntity: ReposEntity) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addUser(reposEntity)
+            repository.addRepos(reposEntity)
         }
     }
 
-    fun searchDatabase(searchQuery: String): LiveData<List<ReposEntity>>{
+    // Simple call to repository searchDatabase function
+    fun searchDatabase(searchQuery: String): LiveData<List<ReposEntity>> {
         return repository.searchDatabase(searchQuery)
     }
 
-    fun deleteAllRepos(){
+    // Calling repository deleteAllRepos function inside Coroutine viewModelScope
+    fun deleteAllRepos() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteAllUser()
+            repository.deleteAllRepos()
         }
     }
 

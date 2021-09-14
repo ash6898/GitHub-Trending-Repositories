@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -9,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
-        app:cardBackgroundColor="#082032">
+        app:cardBackgroundColor="@color/card_view_background">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,40 +27,40 @@
                     android:id="@+id/reposname_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Repository name"
-                    android:textColor="#ececec"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/repository_name"
+                    android:textColor="@color/content_color"
                     android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:layout_alignParentStart="true" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/username_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/reposname_txt"
-                    android:text="username"
-                    android:textColor="#ececec"
+                    android:text="@string/user_name"
+                    android:textColor="@color/content_color"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/description_txt"
-                    android:layout_marginTop="6dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Description"
-                    android:textColor="#fff"
+                    android:layout_below="@+id/username_txt"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/description"
+                    android:textColor="@color/description_color"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_below="@+id/username_txt"/>
+                    android:textStyle="bold" />
 
 
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/expanded_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/expanded_layout"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -67,83 +68,93 @@
                     android:id="@+id/icon_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center">
+                    android:padding="16dp">
 
                     <LinearLayout
+                        android:id="@+id/language_image_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_weight="1"
-                        android:gravity="start">
+                        android:gravity="start"
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables">
 
-                    <ImageView
-                        android:id="@+id/language_vector"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:src="@drawable/circle" />
+                        <ImageView
+                            android:id="@+id/language_vector"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:contentDescription="@string/stars_content_description"
+                            android:src="@drawable/circle"
+                            app:tint="@color/content_color" />
 
-                    <TextView
-                        android:id="@+id/language_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="language"
-                        android:textColor="#fff"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/language_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/language"
+                            android:textColor="@color/content_color"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal">
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables">
 
-                    <ImageView
-                        android:id="@+id/star_vector"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_star_border_24" />
+                        <ImageView
+                            android:id="@+id/star_vector"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/stars_content_description"
+                            android:src="@drawable/ic_baseline_star_border_24"
+                            app:tint="@color/content_color" />
 
-                    <TextView
-                        android:id="@+id/stars_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="2dp"
-                        android:text="stars"
-                        android:textColor="#fff"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/stars_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:text="@string/stars"
+                            android:textColor="@color/content_color"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_weight="1"
-                        android:gravity="end">
+                        android:gravity="end"
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables">
 
+                        <ImageView
+                            android:id="@+id/fork_vector"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/forks_content_description"
+                            android:src="@drawable/ic_baseline_fork_24"
+                            app:tint="@color/content_color" />
 
-                    <ImageView
-                        android:id="@+id/fork_vector"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_fork_24" />
-
-                    <TextView
-                        android:id="@+id/forks_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="forks"
-                        android:textColor="#fff"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/forks_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/forks"
+                            android:textColor="@color/content_color"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -151,26 +162,30 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/share_btn"
+                        style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="share"
-                        android:textColor="#fff"
-                        android:backgroundTint="#FF4C29"
-                        android:layout_marginEnd="8dp"/>
+                        android:layout_marginEnd="8dp"
+                        android:backgroundTint="@color/button_color"
+                        android:text="@string/share_btn"
+                        android:textColor="@color/white" />
 
                     <Button
                         android:id="@+id/open_btn"
+                        style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="open"
-                        android:textColor="#FF4C29"
-                        android:backgroundTint="#fff"
-                        android:layout_marginStart="8dp"/>
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@color/white"
+                        android:text="@string/open_btn"
+                        android:textColor="@color/button_color"
+                        app:strokeColor="@color/button_color"
+                        app:strokeWidth="2dp" />
 
                 </LinearLayout>
 

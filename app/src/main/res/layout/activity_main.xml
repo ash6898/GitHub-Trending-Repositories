@@ -3,55 +3,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MainActivity"
-    android:orientation="vertical"
-    android:gravity="center"
     android:layout_margin="8dp"
-    >
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.activity.MainActivity">
 
     <ProgressBar
         android:id="@+id/progressbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/swipeRefresh_layout"
         android:visibility="gone">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/listView"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
+        android:id="@+id/no_internet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical"
-        android:id="@+id/no_internet"
         android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No Internet Connection"
+            android:gravity="center"
+            android:text="@string/no_internet"
+            android:textColor="@color/content_color"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#38A3A5"
-            android:gravity="center"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/retry_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#38A3A5"
-            android:text="Retry"/>
+            android:backgroundTint="@color/button_color"
+            android:text="@string/retry_btn"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.githubtrendingrepositories.R
 import com.example.githubtrendingrepositories.data.local.entity.ReposEntity
 
-class RecyclerViewAdapter(private val context: Context,
-                          private var mList: List<ReposEntity>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(
+    private val context: Context,
+    private var mList: List<ReposEntity>
+) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -26,32 +28,45 @@ class RecyclerViewAdapter(private val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemsViewModel = mList[position]
         try {
-            // sets the image to the imageview from our itemHolder class
-            holder.reposname.text = itemsViewModel.reposname
-            holder.username.text = itemsViewModel.username
+            // sets the values to the views from our ViewHolder class
+            holder.reposname.text = itemsViewModel.reposName
+            holder.username.text = itemsViewModel.userName
             holder.description.text = itemsViewModel.description
             holder.language.text = itemsViewModel.language
             holder.totalStars.text = itemsViewModel.totalStars
             holder.forks.text = itemsViewModel.forks
 
-            if(itemsViewModel.languageColor != "null"){
-                holder.languageColorImg.setColorFilter(Color.parseColor(itemsViewModel.languageColor))
+            if (holder.description.text == "null") {
+                val descriptionTxt = ""
+                holder.description.text = descriptionTxt
             }
-            else holder.languageColorImg.setColorFilter(Color.WHITE)
 
+            if (itemsViewModel.languageColor != "null") {
+                holder.languageColorImg.setColorFilter(Color.parseColor(itemsViewModel.languageColor))
+            } else {
+                val languageTxt = "No language used"
+                holder.languageColorImg.setColorFilter(Color.parseColor("#112031"))
+                holder.language.text = languageTxt
+            }
+
+            // Checking if CardView is Expanded or not
             val isExpandable: Boolean = itemsViewModel.expandable
-            holder.expandableLayout.visibility = if(isExpandable) View.VISIBLE else View.GONE
+            holder.expandableLayout.visibility = if (isExpandable) View.VISIBLE else View.GONE
 
+            // Setting Listener to check card is clicked to display expand and collapsed view
             holder.collapsedLayout.setOnClickListener {
                 itemsViewModel.expandable = !itemsViewModel.expandable
                 notifyItemChanged(position)
             }
 
-        }catch (e: IllegalArgumentException){
-            Log.d("exceptionn", itemsViewModel.languageColor + itemsViewModel.reposname)
+        } catch (e: IllegalArgumentException) {
+            Log.d("Exception", e.toString())
         }
 
+        // Setting Listener for Share Button
         holder.shareButton.setOnClickListener {
+
+            // Creating Intent to share repository link
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, itemsViewModel.url)
@@ -62,6 +77,7 @@ class RecyclerViewAdapter(private val context: Context,
             context.startActivity(shareIntent)
         }
 
+        // Creating Intent to open repository link in Github mobile App or in any available browsers
         holder.openButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(itemsViewModel.url)
@@ -70,13 +86,15 @@ class RecyclerViewAdapter(private val context: Context,
 
     }
 
-    // return the number of the items in the list
+    // return the number of the items in the RecyclerView
     override fun getItemCount(): Int {
         return mList.size
     }
 
-    // Holds the views for adding it to image and text
+    // Holds the views for adding values to it
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
+
+        // Initializing CardView Views
         val reposname: TextView = itemView.findViewById(R.id.reposname_txt)
         val username: TextView = itemView.findViewById(R.id.username_txt)
         val description: TextView = itemView.findViewById(R.id.description_txt)
